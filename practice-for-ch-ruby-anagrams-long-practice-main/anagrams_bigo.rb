@@ -14,10 +14,7 @@
 # size of the strings?
 
 def first_anagram?(str1,str2)
-    
     anagrams(str1).include?(str2)
-    
-
 end 
 
 def anagrams(str1)
@@ -65,14 +62,32 @@ def second_anagram?(str1, str2)
 
 end 
 
-p second_anagram?("gizmo", "sally")    #=> false
-p second_anagram?("elvis", "lives")
+# p second_anagram?("gizmo", "sally")    #=> false
+# p second_anagram?("elvis", "lives")
 
 
 # o(n) + o(n * n) --> o(n2)
 
 # Try varying the length of the input strings. What are the differences between
 # `#first_anagram?` and `#second_anagram?`?
+
+# ## Phase III
+
+def third_anagram?(str1, str2)
+    str1_arr = str1.split("")
+    str2_arr = str2.split("")
+
+    str1_arr.sort! #n log(n)
+    str2_arr.sort! #n log(n)
+
+    str1_arr == str2_arr
+end
+
+# p third_anagram?("gizmo", "sally")    #=> false
+# p third_anagram?("elvis", "lives")
+
+#n log(n) + n log(n) ---> n log(n)
+
 
 # Write a method `#third_anagram?` that solves the problem by sorting both strings
 # alphabetically. The strings are then anagrams if and only if the sorted versions
@@ -82,6 +97,24 @@ p second_anagram?("elvis", "lives")
 # `#second_anagram?`?
 
 # ## Phase IV
+
+def fourth_anagram?(str1, str2)
+    hash = Hash.new(0)
+
+    str1.each_char do |char| #o(n)
+        hash[char] += 1 #o(1)
+    end
+
+    str2.each_char do |char| #o(n)
+        hash[char] -= 1 #o(1)
+    end
+    hash.all? {|k, v| v == 0 } #o(n)
+end
+
+p fourth_anagram?("gizmo", "sally")    #=> false
+p fourth_anagram?("elvis", "lives")
+
+# 3(n) --> o(n)
 
 # Write one more method `#fourth_anagram?`. This time, use two hashes to store the
 # number of times each letter appears in both words. Compare the resulting hashes.
