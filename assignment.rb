@@ -38,4 +38,48 @@ def my_min_2(list)
     return num 
 
 end 
-p my_min_2(list) => O(n)
+p my_min_2(list) #=> O(n)
+
+def largest_contiguous_sub_sum1(list)
+    i = 0
+    array_subsets = []
+
+    while i < list.length
+    j = i 
+
+        while j < list.length
+            array_subsets << list[i..j]
+            j += 1
+        end
+    i += 1
+    end
+    max = array_subsets[0].sum
+    array_subsets.each do |subset|
+        max = subset.sum if subset.sum > max
+    end
+    max
+end
+
+p largest_contiguous_sub_sum1([5, 3, -7]) #
+p largest_contiguous_sub_sum1([2, 3, -6, 7, -6, 7])
+p largest_contiguous_sub_sum1([-5, -1, -3])
+
+def largest_contiguous_sub_sum2(list)
+    current_sum = list[0]
+    longest_sum = list[0]
+
+    (1...list.length).each do |i|
+        if list[i] > current_sum + list[i]
+            current_sum = list[i]
+        else
+            current_sum = (current_sum + list[i])
+        end
+
+        longest_sum = current_sum if current_sum > longest_sum
+    end
+    longest_sum
+end
+
+p largest_contiguous_sub_sum2([5, 3, -7]) 
+p largest_contiguous_sub_sum2([2, 3, -6, 7, -6, 7])
+p largest_contiguous_sub_sum2([-5, -1, -3])
