@@ -76,8 +76,15 @@ p okay_two_sum?(arr, 10) # => should be false
 
 def two_sum?(array, target_sum)
 
+    hash = Hash.new
+
+    array.each do |ele| 
+        hash[ele] = true
+        return true if hash[target_sum-ele]
+    end
     
 
+    return false 
 end
 
 arr = [0, 1, 5, 7]
